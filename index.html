@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice() {
+            let choice = Math.floor(Math.random() * 3);
+            let answer;
+            if (choice === 0) {
+                answer = "rock";
+            } else if (choice === 1) {
+                answer = "paper";
+            } else {
+                answer = "scissors";
+            }
+            return answer;
+        }
+
+        let wins = 0;
+        let losses = 0;
+        function playRound(playerSelection, computerSelection) {    
+            let playerSelectionCase = playerSelection.toLowerCase();
+
+            if (playerSelectionCase === "rock") {
+                if (computerSelection === "paper") {
+                    losses += 1;
+                    return(`Too bad! Paper beats rock! Wins: ${wins} Losses: ${losses}`);
+                } else if (computerSelection === "scissors") {
+                    wins += 1;
+                    return(`Congrats! Rock beats scissors! Wins: ${wins} Losses: ${losses}`)
+                } return(`It's a tie! Wins: ${wins} Losses: ${losses}`)
+            } else if (playerSelectionCase === "paper") {
+                if (computerSelection === "scissors") {
+                    losses += 1;
+                    return(`Too bad! Scissors beats paper! Wins: ${wins} Losses: ${losses}`);
+                } else if (computerSelection === "rock") {
+                    wins += 1;
+                    return(`Congrats! Paper beats rock! Wins: ${wins} Losses: ${losses}`)
+                } return(`It's a tie! Wins: ${wins} Losses: ${losses}`)
+            } else if (playerSelectionCase === "scissors") {
+                if (computerSelection === "rock") {
+                    losses += 1;
+                    return(`Too bad! Rock beats scissors! Wins: ${wins} Losses: ${losses}`);
+                } else if (computerSelection === "paper") {
+                    wins += 1;
+                    return(`Congrats! Scissors beats paper Wins: ${wins} Losses: ${losses}`)
+                } return(`It's a tie! Wins: ${wins} Losses: ${losses}`)
+            }
+        }
+
+        function game() {
+            for (let i = 0; i < 5; i++) {
+                const playerSelection = prompt("Choose rock, paper, or scissors: ");
+                const computerSelection = getComputerChoice();
+                let result = playRound(playerSelection, computerSelection);
+                console.log(result);
+            }
+            wins = 0;
+            losses = 0;
+        }
+    </script>
+</body>
+</html>
