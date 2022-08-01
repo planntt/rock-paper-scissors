@@ -7,8 +7,11 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <h1>Use the console to play rock paper scissors!</h1>
-    <p>type game() in the console and follow the instructions!</p>
+    <h1>Let's play rock paper scissors!</h1>
+    <button>Rock</button>
+    <button>Paper</button>
+    <button>Scissors</button>
+    <div id="container"></div>
     <script>
         function getComputerChoice() {
             let choice = Math.floor(Math.random() * 3);
@@ -23,55 +26,70 @@
             return answer;
         }
 
+        const container = document.querySelector("#container");
+
+        const result = document.createElement("div");
+        result.classList.add("result");
+
         let wins = 0;
         let losses = 0;
         function playRound(playerSelection, computerSelection) {    
             let playerSelectionCase = playerSelection.toLowerCase();
+            if (wins >= 5) {
+                result.textContent = `Wow! You won ${wins} times!`;
+                container.appendChild(result);
+                return
+            }
 
             if (playerSelectionCase === "rock") {
                 if (computerSelection === "paper") {
                     losses += 1;
-                    return(`Too bad! Paper beats rock! Wins: ${wins} Losses: ${losses}`);
+                    result.textContent = `Too bad! Paper beats rock! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
                 } else if (computerSelection === "scissors") {
                     wins += 1;
-                    return(`Congrats! Rock beats scissors! Wins: ${wins} Losses: ${losses}`)
-                } return(`It's a tie! Wins: ${wins} Losses: ${losses}`)
+                    result.textContent = `Congrats! Rock beats scissors! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
+                } else {
+                    result.textContent = `It's a tie! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result); 
+                }  
             } else if (playerSelectionCase === "paper") {
                 if (computerSelection === "scissors") {
                     losses += 1;
-                    return(`Too bad! Scissors beats paper! Wins: ${wins} Losses: ${losses}`);
+                    result.textContent = `Too bad! Scissors beats paper! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
                 } else if (computerSelection === "rock") {
                     wins += 1;
-                    return(`Congrats! Paper beats rock! Wins: ${wins} Losses: ${losses}`)
-                } return(`It's a tie! Wins: ${wins} Losses: ${losses}`)
+                    result.textContent = `Congrats! Paper beats rock! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
+                } else {
+                    result.textContent = `It's a tie! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
+                }
             } else if (playerSelectionCase === "scissors") {
                 if (computerSelection === "rock") {
                     losses += 1;
-                    return(`Too bad! Rock beats scissors! Wins: ${wins} Losses: ${losses}`);
+                    result.textContent = `Too bad! Rock beats scissors! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
                 } else if (computerSelection === "paper") {
                     wins += 1;
-                    return(`Congrats! Scissors beats paper Wins: ${wins} Losses: ${losses}`)
-                } return(`It's a tie! Wins: ${wins} Losses: ${losses}`)
+                    result.textContent = `Congrats! Scissors beats paper Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
+                } else {
+                    result.textContent = `It's a tie! Wins: ${wins} Losses: ${losses}`;
+                    container.appendChild(result);
+                }
             }
         }
 
-        function game() {
-            for (let i = 0; i < 5; i++) {
-                const playerSelection = prompt("Choose rock, paper, or scissors: ");
-                const computerSelection = getComputerChoice();
-                let result = playRound(playerSelection, computerSelection);
-                console.log(result);
-            }
-            if (wins > losses) {
-                console.log("You won the game!");
-            } else if (wins === losses) {
-                console.log("Woah, tied game!");
-            } else {
-                console.log("Oh no, you lost!")
-            }
-            wins = 0;
-            losses = 0;
-        }
+        const buttons = document.querySelectorAll("button");
+
+        buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+                playRound(button.textContent, getComputerChoice());
+            });
+        });
     </script>
 </body>
 </html>
